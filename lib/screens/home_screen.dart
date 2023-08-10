@@ -1,4 +1,5 @@
 import 'dart:math';
+// make sure you add this line
 
 import 'package:flutter/material.dart';
 class HomeScreen extends StatelessWidget {
@@ -8,50 +9,55 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  const Text("Emoji painter"),
+        title: const Text("Emoji Painter"),
       ),
       body: LayoutBuilder(
-        builder: (context,constraints){
-          return CustomPaint(
-            painter: MyEmojipainter(),
-            size: Size(constraints.maxHeight,constraints.maxWidth),
-
-          );
-        },
+          builder: (context,constraints){
+            return CustomPaint(
+              painter: MyEmojiPainter(),
+              size: Size(constraints.maxHeight,constraints.maxWidth),
+            );
+          }
       ),
     );
   }
 }
 
-
-class MyEmojipainter extends CustomPainter{
+class MyEmojiPainter extends CustomPainter{
   @override
   void paint(Canvas canvas, Size size) {
 
-
-    // To Draw line
+    // Creating the line paint
     Paint linepaint=Paint()..strokeWidth=10;
 
-   // To Draw face
-    Paint facepaint=Paint()..strokeWidth=10..color=Colors.yellow;
+    // Creating the facepaint
 
-    canvas.drawCircle( Offset(size.width/2, (size.height/2)+20), 200, facepaint);
-    // line One
-    // left Eyebrow
-    canvas.drawLine(const Offset(50, 100),const  Offset(150, 160), linepaint);
-    // line two
-    // right Eyebrow
+    Paint facepaint=Paint()..color=Colors.yellow;
+
+// make sure you create the face before creating anything on canvas
+    // its not in right position
+    // lets solve it
+    canvas.drawCircle(Offset(size.width/2, size.height/2+30), 200, facepaint);
+
+    // Creating the Eyebrows
+
+    canvas.drawLine(Offset(50, 100), Offset(150, 160), linepaint);
     canvas.drawLine(Offset(size.width-50, 100), Offset(size.width-150, 160), linepaint);
-    // Draw Circle
-    //left eye
-    canvas.drawCircle(const Offset(100, 180), 20, linepaint);
-    //right eye
-    canvas.drawCircle( Offset(size.width-100, 180), 20, linepaint);
-// this rect helps to draw mouth
-    Rect rect= const  Rect.fromLTRB(70, 370, 300, 140);
-    // Draw mouth
+
+    // Creating the eyes
+
+    canvas.drawCircle(Offset(100, 200), 20, linepaint);
+    canvas.drawCircle(Offset(size.width-100, 200), 20, linepaint);
+
+    // Creating the Mouth
+
+    // but first we need a Rectangle
+
+    Rect rect= Rect.fromLTRB(70, 370, 300, 140);
+
     canvas.drawArc(rect, pi, pi, true, linepaint);
-    // draw Entire face
+
+    // Creating the face
 
 
 
@@ -59,7 +65,9 @@ class MyEmojipainter extends CustomPainter{
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
-   return true;
+    return true;
   }
-
 }
+
+// All Done
+// Thanks for Watching
